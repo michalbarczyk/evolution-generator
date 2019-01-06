@@ -1,14 +1,16 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Creature implements IWorldElement {
 
     private Vector vector;
-    private WorldDirection direction;
     private IWorldMap iWorldMap;
     private List<IVectorChangeObserver> vectorChangeObservers;
 
-    public Creature(Vector initVector) {
+    public Creature(Vector initVector, IWorldMap iWorldMap) {
         this.vector = initVector;
+        this.iWorldMap = iWorldMap;
+        this.vectorChangeObservers = new ArrayList<>();
     }
 
 

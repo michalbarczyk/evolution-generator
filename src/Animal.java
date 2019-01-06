@@ -4,8 +4,12 @@ public class Animal extends Creature {
     private WorldDirection animalDirection;
     private Genom animalGenom;
 
-    public Animal(Vector initVector) {
-        super(initVector);
+    public Animal(Vector initVector, WorldDirection initDirection, IWorldMap iWorldMap, int energy, Genom initGenom) {
+        super(initVector, iWorldMap);
+        this.animalEnergy = energy;
+        this.animalDirection = initDirection;
+        this.animalGenom = initGenom;
+
     }
 
     public void move(MoveDirection direction) {
@@ -29,14 +33,31 @@ public class Animal extends Creature {
             case FORWARD:
                 animalDirection = animalDirection.next(0);
         }
-
-
-
     }
 
     @Override
     public String toString() {
-        return "A";
+        switch (this.animalDirection) {
+
+            case NORTH:
+                return "/\\";
+            case NORTHEAST:
+                return "^>";
+            case EAST:
+                return "->";
+            case SOUTHEAST:
+                return "v>";
+            case SOUTH:
+                return "\\/";
+            case SOUTHWEST:
+                return "<v";
+            case WEST:
+                return "<-";
+            case NORTHWEST:
+                return "<^";
+        }
+
+        return null;
     }
 
 }

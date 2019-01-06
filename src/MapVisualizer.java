@@ -12,16 +12,17 @@ public class MapVisualizer {
         StringBuilder builder = new StringBuilder();
 
         int length = upRight.x - downLeft.x + 1;
-        builder.append(" ");
+        builder.append("  ");
 
         for (int i = 0; i < length; i++) {
             builder.append(" ");
-            builder.append(i);
+            builder.append(String.format("%2d", i));
         }
         builder.append("\n");
 
         for (int y = upRight.y; y >= downLeft.y; y--) {
-            builder.append(y);
+
+            builder.append(String.format("%2d", y));
 
             for (int x = downLeft.x; x <= upRight.x; x++) {
                 builder.append(leftRightBorder);
@@ -29,7 +30,7 @@ public class MapVisualizer {
                 if (this.iWorldMap.isOccupied(currVector))
                     builder.append(this.iWorldMap.objectAt(currVector).toString());
                 else
-                    builder.append(" ");
+                    builder.append("  ");
             }
 
             builder.append(leftRightBorder);

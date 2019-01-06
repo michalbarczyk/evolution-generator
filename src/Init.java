@@ -5,8 +5,8 @@ public class Init {
 
     public static void main(String[] args) {
 
-        /*Genom genom = new Genom();
-        genom.getMap().put(MoveDirection.BACKWARD, 10);
+        Genom genom = new Genom();
+        /*genom.getMap().put(MoveDirection.BACKWARD, 10);
         genom.getMap().put(MoveDirection.BACKWARDLEFT, 10);
         genom.getMap().put(MoveDirection.BACKWARDRIGHT, 10);
         genom.getMap().put(MoveDirection.LEFT, 10);
@@ -40,13 +40,14 @@ public class Init {
         }*/
 
 
-        IWorldMap iWorldMap = new RectangularWorldMap(10,5);
-        iWorldMap.add(new Vector(0,0), new Animal(new Vector(0,0)));
-        iWorldMap.add(new Vector(4,4), new Animal(new Vector(4,4)));
-        iWorldMap.add(new Vector(7,1), new Animal(new Vector(7,1)));
+        IWorldMap iWorldMap = new RectangularWorldMap(60,60);
+        iWorldMap.add(new Vector(0,0), new Animal(new Vector(0,0), WorldDirection.WEST, iWorldMap, 12, genom));
+        iWorldMap.add(new Vector(5,9), new Animal(new Vector(5,9), WorldDirection.SOUTH, iWorldMap, 12, genom));
+
+
 
         MapVisualizer mapVisualizer = new MapVisualizer(iWorldMap);
-        System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(9,4)));
+        System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(59,59)));
 
     }
 }
