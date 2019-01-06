@@ -5,7 +5,7 @@ public class Init {
 
     public static void main(String[] args) {
 
-        Genom genom = new Genom();
+        /*Genom genom = new Genom();
         genom.getMap().put(MoveDirection.BACKWARD, 10);
         genom.getMap().put(MoveDirection.BACKWARDLEFT, 10);
         genom.getMap().put(MoveDirection.BACKWARDRIGHT, 10);
@@ -37,6 +37,16 @@ public class Init {
         for (Map.Entry<MoveDirection, Integer> entry : test.entrySet()) {
 
             System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
+        }*/
+
+
+        IWorldMap iWorldMap = new RectangularWorldMap(10,5);
+        iWorldMap.add(new Vector(0,0), new Animal(new Vector(0,0)));
+        iWorldMap.add(new Vector(4,4), new Animal(new Vector(4,4)));
+        iWorldMap.add(new Vector(7,1), new Animal(new Vector(7,1)));
+
+        MapVisualizer mapVisualizer = new MapVisualizer(iWorldMap);
+        System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(9,4)));
+
     }
 }
