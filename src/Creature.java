@@ -3,17 +3,36 @@ import java.util.List;
 
 public abstract class Creature implements IWorldElement {
 
-    protected Area creatureArea;
+    protected Vector creatureVector;
+    protected WorldMap worldMap;
+    private List<IVectorChangeObserver> observers;
 
-    public Creature(Area initArea) {
-        this.creatureArea = initArea;
+    public Creature(Vector initVector, WorldMap worldMap) {
+        this.creatureVector = initVector;
+        this.worldMap = worldMap;
+        this.observers = new ArrayList<>();
     }
 
-
-    @Override
-    public Area getArea() {
-        return this.creatureArea;
+    public Vector getVector() {
+        return this.creatureVector;
     }
 
+    public void addObserver(IVectorChangeObserver observer) {
+
+        observers.add(observer);
+    }
+
+    public void removeObserver(IVectorChangeObserver observer) {
+
+        observers.remove(observer);
+    }
+
+    public void vectorChanged(Vector oldVector, Vector newVector) {
+
+        for (IVectorChangeObserver observer : observers) {
+
+            observer.vectorChanged(oldVector, newVector);
+        }
+    }
 
 }

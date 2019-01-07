@@ -1,11 +1,11 @@
 public class MapVisualizer {
 
-    private IWorldMap iWorldMap;
+    private WorldMap map;
     private final String leftRightBorder = "|";
     private final String downUpBorder = "-";
 
-    public MapVisualizer(IWorldMap iWorldMap) {
-        this.iWorldMap = iWorldMap;
+    public MapVisualizer(WorldMap map) {
+        this.map = map;
     }
 
     public String draw(Vector downLeft, Vector upRight) {
@@ -27,8 +27,8 @@ public class MapVisualizer {
             for (int x = downLeft.x; x <= upRight.x; x++) {
                 builder.append(leftRightBorder);
                 Vector currVector = new Vector(x,y);
-                if (this.iWorldMap.isOccupied(currVector))
-                    builder.append(this.iWorldMap.objectAt(currVector).toString());
+                if (this.map.isOccupied(currVector))
+                    builder.append(this.map.animalAt(currVector).toString());
                 else
                     builder.append("  ");
             }

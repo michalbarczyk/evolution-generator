@@ -1,26 +1,21 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class RectangularWorldMap implements IWorldMap {
+public class WorldMap implements IVectorChangeObserver {
 
-    private Map<Vector, Area> worldMap;
+    private Map<Vector, Animal> animals;
+    private Map<Vector, Plant> plants;
     private int height;
     private int length;
 
-    public RectangularWorldMap(int length, int height) {
-        this.worldMap = new HashMap<>();
+    public WorldMap(int length, int height) {
+        this.animals = new HashMap<>();
+        this.plants = new HashMap<>();
         this.height = height;
         this.length = length;
-
-        for (int x = 0; x < length; x++) {
-            for (int y = 0; y < height; y++) {
-                Area area = new Area(new Vector(x, y), this);
-                worldMap.put(area.getAreaVector(), area);
-            }
-        }
     }
 
-    public Area getAreaInFrontOfMe(WorldDirection myDirection, Area myArea) {
+    public Vector getVectorInFrontOfMe(WorldDirection myDirection, Vector myVector) {
         Vector versor = null;
 
         switch (myDirection) {
@@ -51,19 +46,22 @@ public class RectangularWorldMap implements IWorldMap {
                 break;
         }
 
-        Vector preResult = myArea.getAreaVector().add(versor);
-        Vector result = new Vector(preResult.x % length, preResult.y % height);
+        Vector preResult = myVector.add(versor);
 
-        return worldMap.get(result);
+        return new Vector(preResult.x % length, preResult.y % height);
     }
 
-    public boolean isOccupied(Vector vector){
-        return worldMap.containsKey(vector);
+    public Animal animalAt(Vector vector) {return animals.get(vector);}
+
+    public void addAnimal(Animal animal) {
+        if(!isOccupied(animal.creatureVector)) {
+            animals.put(animal.creatureVector, animal);
+            animal.addObserver(this);
+        }
     }
 
-    @Override
-    public Object objectAt(Vector vector) {
-        return this.worldMap.get(vector);
+    public boolean isOccupied(Vector vector) {
+        return animals.containsKey(vector);
     }
 
     public int getHeight() {
@@ -72,5 +70,11 @@ public class RectangularWorldMap implements IWorldMap {
 
     public int getLength() {
         return length;
+    }
+
+    @Override
+    public void vectorChanged(Vector oldVector, Vector newVector) {
+        Animal animal = animals.remove(oldVector);
+        animals.put(newVector, animal);
     }
 }

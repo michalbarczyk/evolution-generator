@@ -1,15 +1,20 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Animal extends Creature {
 
     private int animalEnergy;
+    private int toReproduction;
     private WorldDirection animalDirection;
     private Genom animalGenom;
 
-    public Animal(Area initArea, WorldDirection initDirection, int energy, Genom initGenom) {
-        super(initArea);
+
+    public Animal(Vector initVector, WorldMap worldMap, WorldDirection initDirection, int energy, Genom initGenom, int toReproduction) {
+        super(initVector, worldMap);
         this.animalEnergy = energy;
         this.animalDirection = initDirection;
         this.animalGenom = initGenom;
-
+        this.toReproduction = toReproduction;
     }
 
     public void move(MoveDirection direction) {
@@ -42,12 +47,19 @@ public class Animal extends Creature {
                 break;
         }
 
-        Area oldArea = creatureArea;
-        creatureArea = creatureArea.getIWorldMap().getAreaInFrontOfMe(animalDirection, creatureArea);
+        Vector oldVector = creatureVector;
+        Vector candidateVector = worldMap.getVectorInFrontOfMe(animalDirection, creatureVector);
+        if (!worldMap.isOccupied(candidateVector)) {
+            creatureVector = candidateVector;
+            vectorChanged(oldVector, creatureVector);
+        }
     }
+
+
 
     @Override
     public String toString() {
+
         switch (this.animalDirection) {
 
             case NORTH:

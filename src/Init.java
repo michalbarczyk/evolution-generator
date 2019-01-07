@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class Init {
 
     public static void main(String[] args) {
@@ -40,15 +37,14 @@ public class Init {
         }*/
 
 
-        IWorldMap iWorldMap = new RectangularWorldMap(8,8);
-        Area area = new Area(new Vector(3,3), iWorldMap);
-        Animal animal = new Animal(area, WorldDirection.NORTH, 5, genom);
+        WorldMap map = new WorldMap(8,8);
 
+        Animal animal = new Animal(new Vector(3,3), map, WorldDirection.NORTH, 5, genom, 59);
 
+        map.addAnimal(animal);
 
-        MapVisualizer mapVisualizer = new MapVisualizer(iWorldMap);
-        //System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(7,7)));
-        //animal.move(MoveDirection.RIGHT);
+        MapVisualizer mapVisualizer = new MapVisualizer(map);
+        System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(7,7)));
         for(int i = 0; i < 10; i++) {
             animal.move(MoveDirection.FORWARD);
             System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(7,7)));
