@@ -18,21 +18,33 @@ public class Animal extends Creature {
 
             case FORWARDLEFT:
                 animalDirection = animalDirection.prev(1);
+                break;
             case LEFT:
                 animalDirection = animalDirection.prev(2);
+                break;
             case BACKWARDLEFT:
                 animalDirection = animalDirection.prev(3);
+                break;
             case FORWARDRIGHT:
                 animalDirection = animalDirection.next(1);
+                break;
             case RIGHT:
                 animalDirection = animalDirection.next(2);
+                break;
             case BACKWARDRIGHT:
                 animalDirection = animalDirection.next(3);
+                break;
             case BACKWARD:
                 animalDirection = animalDirection.next(4);
+                break;
             case FORWARD:
                 animalDirection = animalDirection.next(0);
+                break;
         }
+
+        Vector oldVector = creatureVector;
+        creatureVector = iWorldMap.getVectorInFrontOfMe(animalDirection, creatureVector);
+        positionChanged(oldVector, creatureVector);
     }
 
     @Override

@@ -1,4 +1,4 @@
 public interface IWorldElement {
 
-    Vector getVector();
+    Vector getCreatureVector();
 }

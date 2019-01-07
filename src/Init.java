@@ -40,14 +40,18 @@ public class Init {
         }*/
 
 
-        IWorldMap iWorldMap = new RectangularWorldMap(60,60);
-        iWorldMap.add(new Vector(0,0), new Animal(new Vector(0,0), WorldDirection.WEST, iWorldMap, 12, genom));
-        iWorldMap.add(new Vector(5,9), new Animal(new Vector(5,9), WorldDirection.SOUTH, iWorldMap, 12, genom));
+        IWorldMap iWorldMap = new RectangularWorldMap(15,15);
+        Animal animal = new Animal(new Vector(3,8), WorldDirection.NORTH, iWorldMap, 5, genom);
+        ((RectangularWorldMap)iWorldMap).add(animal);
+
 
 
 
         MapVisualizer mapVisualizer = new MapVisualizer(iWorldMap);
-        System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(59,59)));
+        System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(14,14)));
+        animal.move(MoveDirection.RIGHT);
+        animal.move(MoveDirection.FORWARDLEFT);
+        System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(14,14)));
 
     }
 }

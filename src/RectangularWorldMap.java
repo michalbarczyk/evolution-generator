@@ -27,20 +27,28 @@ public class RectangularWorldMap implements IVectorChangeObserver, IWorldMap {
 
             case NORTH:
                 versor = new Vector(0,1);
+                break;
             case NORTHEAST:
                 versor = new Vector(1,1);
+                break;
             case EAST:
                 versor = new Vector(1,0);
+                break;
             case SOUTHEAST:
                 versor = new Vector(1,-1);
+                break;
             case SOUTH:
                 versor = new Vector(0,-1);
+                break;
             case SOUTHWEST:
                 versor = new Vector(-1,-1);
+                break;
             case WEST:
                 versor = new Vector(-1,0);
+                break;
             case NORTHWEST:
                 versor = new Vector(-1,1);
+                break;
         }
 
         Vector preResult = myVector.add(versor);
@@ -58,13 +66,14 @@ public class RectangularWorldMap implements IVectorChangeObserver, IWorldMap {
         return this.worldMap.containsKey(vector);
     }
 
-    @Override
-    public void add(Vector vector, IWorldElement iWorldElement) {
+    public void add(Creature creature) {
 
-        if (!isOccupied(vector))
-            this.worldMap.put(vector, iWorldElement);
+        if (!isOccupied(creature.getCreatureVector())) {
+            this.worldMap.put(creature.getCreatureVector(), creature);
+            creature.addObserver(this);
+        }
         else
-            throw new IllegalArgumentException(vector.toString() + " is already occupied");
+            throw new IllegalArgumentException(creature.getCreatureVector().toString() + " is already occupied");
     }
 
     public int getHeight() {
