@@ -4,5 +4,5 @@ public interface IWorldMap {
 
     boolean isOccupied(Vector vector);
 
-    Vector getVectorInFrontOfMe(WorldDirection myDirection, Vector myVector);
+    Area getAreaInFrontOfMe(WorldDirection myDirection, Area myArea);
 }

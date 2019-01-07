@@ -4,8 +4,8 @@ public class Animal extends Creature {
     private WorldDirection animalDirection;
     private Genom animalGenom;
 
-    public Animal(Vector initVector, WorldDirection initDirection, IWorldMap iWorldMap, int energy, Genom initGenom) {
-        super(initVector, iWorldMap);
+    public Animal(Area initArea, WorldDirection initDirection, int energy, Genom initGenom) {
+        super(initArea);
         this.animalEnergy = energy;
         this.animalDirection = initDirection;
         this.animalGenom = initGenom;
@@ -42,9 +42,8 @@ public class Animal extends Creature {
                 break;
         }
 
-        Vector oldVector = creatureVector;
-        creatureVector = iWorldMap.getVectorInFrontOfMe(animalDirection, creatureVector);
-        positionChanged(oldVector, creatureVector);
+        Area oldArea = creatureArea;
+        creatureArea = creatureArea.getIWorldMap().getAreaInFrontOfMe(animalDirection, creatureArea);
     }
 
     @Override

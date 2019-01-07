@@ -1,9 +1,9 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class RectangularWorldMap implements IVectorChangeObserver, IWorldMap {
+public class RectangularWorldMap implements IWorldMap {
 
-    private Map<Vector, IWorldElement> worldMap;
+    private Map<Vector, Area> worldMap;
     private int height;
     private int length;
 
@@ -11,16 +11,16 @@ public class RectangularWorldMap implements IVectorChangeObserver, IWorldMap {
         this.worldMap = new HashMap<>();
         this.height = height;
         this.length = length;
+
+        for (int x = 0; x < length; x++) {
+            for (int y = 0; y < height; y++) {
+                Area area = new Area(new Vector(x, y), this);
+                worldMap.put(area.getAreaVector(), area);
+            }
+        }
     }
 
-    @Override
-    public void positionChanged(Vector oldVector, Vector newVector) {
-
-        IWorldElement element = worldMap.remove(oldVector);
-        worldMap.put(newVector, element);
-    }
-
-    public Vector getVectorInFrontOfMe(WorldDirection myDirection, Vector myVector) {
+    public Area getAreaInFrontOfMe(WorldDirection myDirection, Area myArea) {
         Vector versor = null;
 
         switch (myDirection) {
@@ -51,29 +51,19 @@ public class RectangularWorldMap implements IVectorChangeObserver, IWorldMap {
                 break;
         }
 
-        Vector preResult = myVector.add(versor);
+        Vector preResult = myArea.getAreaVector().add(versor);
+        Vector result = new Vector(preResult.x % length, preResult.y % height);
 
-        return new Vector(preResult.x % length, preResult.y % height);
+        return worldMap.get(result);
+    }
+
+    public boolean isOccupied(Vector vector){
+        return worldMap.containsKey(vector);
     }
 
     @Override
     public Object objectAt(Vector vector) {
         return this.worldMap.get(vector);
-    }
-
-    @Override
-    public boolean isOccupied(Vector vector) {
-        return this.worldMap.containsKey(vector);
-    }
-
-    public void add(Creature creature) {
-
-        if (!isOccupied(creature.getCreatureVector())) {
-            this.worldMap.put(creature.getCreatureVector(), creature);
-            creature.addObserver(this);
-        }
-        else
-            throw new IllegalArgumentException(creature.getCreatureVector().toString() + " is already occupied");
     }
 
     public int getHeight() {
