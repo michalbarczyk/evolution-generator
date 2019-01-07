@@ -1,10 +1,10 @@
 public class Plant extends Creature {
 
-    int energeticValue;
+    int energeticValue = 5;
 
-    public Plant(Vector initVector, WorldMap worldMap, int value) {
+    public Plant(Vector initVector, WorldMap worldMap/*, int value*/) {
         super(initVector, worldMap);
-        this.energeticValue = value;
+        //this.energeticValue = value;
     }
 
     @Override

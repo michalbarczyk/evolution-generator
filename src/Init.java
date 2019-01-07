@@ -37,18 +37,33 @@ public class Init {
         }*/
 
 
-        WorldMap map = new WorldMap(8,8);
 
-        Animal animal = new Animal(new Vector(3,3), map, WorldDirection.NORTH, 5, genom, 59);
+        WorldMap worldMap = WorldMapBuilder.build(160,160,4,600, 2500, 15.0);
 
-        map.addAnimal(animal);
+        /*DistributedRandomValuesGenerator<Vector> plantGenerator = new DistributedRandomValuesGenerator<>();
 
-        MapVisualizer mapVisualizer = new MapVisualizer(map);
-        System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(7,7)));
-        for(int i = 0; i < 10; i++) {
-            animal.move(MoveDirection.FORWARD);
-            System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(7,7)));
+        for (Vector vector : worldMap.getAllPossibleVectors()) {
+            if (worldMap.inJungle(vector))
+                plantGenerator.add(vector, 0.1d * worldMap.getJungleDensity());
+            else
+                plantGenerator.add(vector, 0.1d);
         }
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(plantGenerator.getDistributedRandom());
+        }*/
+
+        //Animal animal = new Animal(new Vector(3,3), map, WorldDirection.NORTH, 5, genom, 59);
+        //Animal animal2 = new Animal(new Vector(3,5), map, WorldDirection.NORTH, 5, genom, 59);
+        //map.addAnimal(animal);
+        //map.addAnimal(animal2);
+
+        MapVisualizer mapVisualizer = new MapVisualizer(worldMap);
+        System.out.print(mapVisualizer.drawPlants(new Vector(0,0), new Vector(159,159)));
+        //for(int i = 0; i < 10; i++) {
+           // animal.move(MoveDirection.FORWARD);
+           // System.out.print(mapVisualizer.drawPlants(new Vector(0,0), new Vector(19,19)));
+        //}
 
     }
 }
