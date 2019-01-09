@@ -29,4 +29,20 @@ public class WorldMapBuilder {
                 worldMap.addPlant(new Plant(vector, worldMap));
         }
     }
+
+    public static void generateAnimals(WorldMap worldMap, int animalsNo) {
+        DistributedRandomValuesGenerator<Vector> animalGenerator = new DistributedRandomValuesGenerator<>();
+
+        for (Vector vector : worldMap.getAllPossibleVectors()) {
+            animalGenerator.add(vector, 0.1d);
+        }
+
+        for (int i = 0; i < animalsNo; i++) {
+            Vector vector = animalGenerator.getDistributedRandom();
+            if (worldMap.isOccupied(vector))
+                i--;
+            else
+                worldMap.addAnimal(new Animal(vector, worldMap, WorldDirection.NORTH, ));
+        }
+    }
 }
