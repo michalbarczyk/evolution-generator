@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Animal extends Creature {
 
@@ -17,7 +18,7 @@ public class Animal extends Creature {
         this.toReproduction = toReproduction;
     }
 
-    public void move(MoveDirection direction) {
+    private void move(MoveDirection direction) {
 
         switch (direction) {
 
@@ -55,7 +56,14 @@ public class Animal extends Creature {
         }
     }
 
+    public void moveByGenom() {
+        DistributedRandomValuesGenerator<MoveDirection> directionGenerator = new DistributedRandomValuesGenerator<>();
+        for (Map.Entry<MoveDirection, Double> gene : animalGenom.getGenes()) {
+            directionGenerator.add(gene.getKey(), gene.getValue());
+        }
 
+        move(directionGenerator.getDistributedRandom());
+    }
 
     @Override
     public String toString() {

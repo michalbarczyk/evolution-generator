@@ -1,4 +1,4 @@
-import java.util.Map;
+/*import java.util.Map;
 
 public class RandomMoveDirectionGenerator {
 
@@ -16,4 +16,4 @@ public class RandomMoveDirectionGenerator {
 
         return generator.getDistributedRandom();
    }
-}
+}*/

@@ -4,18 +4,18 @@ import java.util.Map;
 
 public class Genom {
 
-    private Map<MoveDirection, Integer> genes;
+    private Map<MoveDirection, Double> genes;
 
     public Genom() {
         genes = new HashMap<>();
     }
 
-    public Collection<Integer> getValues() {
+    public Collection<Double> getValues() {
         return genes.values();
     }
-    public Collection<Map.Entry<MoveDirection, Integer>> getGenes() {
+    public Collection<Map.Entry<MoveDirection, Double>> getGenes() {
         return genes.entrySet();
     }
 
-    public Map<MoveDirection, Integer> getMap() {return genes;}
+    public Map<MoveDirection, Double> getMap() {return genes;}
 }

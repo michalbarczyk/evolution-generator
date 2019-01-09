@@ -23,14 +23,6 @@ public class Init {
         test.put(MoveDirection.FORWARDLEFT, 0);
         test.put(MoveDirection.FORWARDRIGHT, 0);
 
-
-        for (int i = 0; i < 580*1000; i++) {
-
-            MoveDirection moveDirection = RandomMoveDirectionGenerator.generate(genom);
-            test.put(moveDirection, test.remove(moveDirection) + 1);
-
-        }
-
         for (Map.Entry<MoveDirection, Integer> entry : test.entrySet()) {
 
             System.out.println(entry.getKey() + " -> " + entry.getValue());
@@ -38,7 +30,7 @@ public class Init {
 
 
 
-        WorldMap worldMap = WorldMapBuilder.build(160,160,4,600, 2500, 15.0);
+        WorldMap worldMap = WorldMapBuilder.build(25,25,4,600, 25, 165.0);
 
         /*DistributedRandomValuesGenerator<Vector> plantGenerator = new DistributedRandomValuesGenerator<>();
 
@@ -59,7 +51,7 @@ public class Init {
         //map.addAnimal(animal2);
 
         MapVisualizer mapVisualizer = new MapVisualizer(worldMap);
-        System.out.print(mapVisualizer.drawPlants(new Vector(0,0), new Vector(159,159)));
+        System.out.print(mapVisualizer.drawPlants(new Vector(0,0), new Vector(24,24)));
         //for(int i = 0; i < 10; i++) {
            // animal.move(MoveDirection.FORWARD);
            // System.out.print(mapVisualizer.drawPlants(new Vector(0,0), new Vector(19,19)));
