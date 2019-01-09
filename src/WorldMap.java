@@ -1,11 +1,9 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WorldMap implements IVectorChangeObserver {
 
     private Map<Vector, Animal> animals;
+    private List<Animal> animalsList;
     private Map<Vector, Plant> plants;
     private int height;
     private int length;
@@ -15,6 +13,7 @@ public class WorldMap implements IVectorChangeObserver {
 
     public WorldMap(int length, int height, Vector jungleLeftDown, Vector jungleRightUp, double jungleDensity) {
         this.animals = new HashMap<>();
+        this.animalsList = new ArrayList<>();
         this.plants = new HashMap<>();
         this.height = height;
         this.length = length;
@@ -55,6 +54,7 @@ public class WorldMap implements IVectorChangeObserver {
         }
 
         Vector preResult = myVector.add(versor);
+        preResult = new Vector(preResult.x + this.getLength(), preResult.y + this.getHeight());
 
         return new Vector(preResult.x % length, preResult.y % height);
     }
@@ -66,9 +66,10 @@ public class WorldMap implements IVectorChangeObserver {
     public void addAnimal(Animal animal) {
         if(!isOccupied(animal.creatureVector)) {
             animals.put(animal.creatureVector, animal);
+            animalsList.add(animal);
             animal.addObserver(this);
         }
-        else throw new IllegalArgumentException(animal.creatureVector.toString() + " is already occupied by animal");
+
     }
 
     public void addPlant(Plant plant) {
@@ -78,6 +79,10 @@ public class WorldMap implements IVectorChangeObserver {
     public Plant removePlantFrom(Vector vector) {
         return plants.remove(vector);
     }
+
+    public Animal removeAnimalFrom(Animal animal) {
+        animalsList.remove(animal);
+        return animals.remove(animal.creatureVector);}
 
     public boolean isOccupied(Vector vector) {
         return animals.containsKey(vector);
@@ -109,6 +114,10 @@ public class WorldMap implements IVectorChangeObserver {
 
     public boolean inJungle(Vector vector) {
         return vector.x >= jungleLeftDown.x && vector.x <= jungleRightUp.x && vector.y >= jungleLeftDown.y && vector.y <= jungleRightUp.y;
+    }
+
+    public List<Animal> getAnimalsList() {
+        return this.animalsList;
     }
 
     @Override

@@ -8,7 +8,11 @@ public class Animal extends Creature {
     private int toReproduction;
     private WorldDirection animalDirection;
     private Genom animalGenom;
-    public final int REPRODUCTIONENERGY = 16;
+    public static final int DEFAULTENERGY = 25;
+    public static final int REPRODUCTIONENERGY = 16;
+    public static final WorldDirection DEFAULTWORLDDIRECTION = WorldDirection.NORTH;
+    public static final int DEFAULTREPRODUCTION = 100;
+    private Animal child;
 
 
     public Animal(Vector initVector, WorldMap worldMap, WorldDirection initDirection, int energy, Genom initGenom, int toReproduction) {
@@ -17,6 +21,11 @@ public class Animal extends Creature {
         this.animalDirection = initDirection;
         this.animalGenom = initGenom;
         this.toReproduction = toReproduction;
+        this.child = null;
+    }
+
+    public int getAnimalEnergy() {
+        return animalEnergy;
     }
 
     private void move(MoveDirection direction) {
@@ -57,7 +66,7 @@ public class Animal extends Creature {
         }
     }
 
-    public void moveByGenom() {
+    public void tryToMoveByGenom() {
         DistributedRandomValuesGenerator<MoveDirection> directionGenerator = new DistributedRandomValuesGenerator<>();
         for (Map.Entry<MoveDirection, Double> gene : animalGenom.getGenes()) {
             directionGenerator.add(gene.getKey(), gene.getValue());
@@ -72,15 +81,36 @@ public class Animal extends Creature {
         }
     }
 
-    public void tryReproduct() {
-        if (toReproduction == 0 && animalEnergy >= REPRODUCTIONENERGY) {
+    public void tryToReproduct() {
+        if (toReproduction <= 0 && animalEnergy >= REPRODUCTIONENERGY) {
             Vector childVector = worldMap.getFreeVectorNextTo(getVector());
+
             if (childVector != null) {
-                worldMap.addAnimal(new Animal(childVector, worldMap, );
+                int childEnergy = this.animalEnergy / 2;
+                this.child = (new Animal(childVector, worldMap, DEFAULTWORLDDIRECTION, childEnergy, animalGenom.getChildGenom(), DEFAULTREPRODUCTION));
+                this.animalEnergy -= childEnergy;
+                this.toReproduction = DEFAULTREPRODUCTION;
             }
 
         }
 
+    }
+
+    public Genom getAnimalGenom() {
+        return this.animalGenom;
+    }
+
+    public Animal getChild() {
+        return this.child;
+    }
+
+    public void reduceChild() {
+        this.child = null;
+    }
+
+    public void refreshDay() {
+        this.animalEnergy--;
+        this.toReproduction--;
     }
 
     @Override

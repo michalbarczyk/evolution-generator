@@ -1,12 +1,13 @@
 public class WorldMapBuilder {
 
-    public static WorldMap build(int length, int height, int worldJungleRatio, int initAimalsNo, int initPlantsNo, double jungleDensity) {
+    public static WorldMap build(int length, int height, int worldJungleRatio, int initAimalsNo, int initPlantsNo, double jungleDensity, Genom initGenom) {
         int jungleLength = length / worldJungleRatio;
         int jungleHeight = height / worldJungleRatio;
         Vector jungleLeftDown = new Vector((length - jungleLength) / 2, (height - jungleHeight) / 2 );
         Vector jungleUpRight = new Vector(((length - jungleLength) / 2) + jungleLength, ((height - jungleHeight) / 2) + jungleHeight);
         WorldMap worldMap = new WorldMap(length, height, jungleLeftDown, jungleUpRight, jungleDensity);
         generatePlants(worldMap, initPlantsNo);
+        generateAnimals(worldMap, initAimalsNo, initGenom);
 
         return worldMap;
     }
@@ -23,14 +24,12 @@ public class WorldMapBuilder {
 
         for (int i = 0; i < plantsNo; i++) {
             Vector vector = plantGenerator.getDistributedRandom();
-            if (worldMap.isPlanted(vector))
-                i--;
-            else
+            if (!worldMap.isPlanted(vector))
                 worldMap.addPlant(new Plant(vector, worldMap));
         }
     }
 
-    public static void generateAnimals(WorldMap worldMap, int animalsNo) {
+    public static void generateAnimals(WorldMap worldMap, int animalsNo, Genom initGenom) {
         DistributedRandomValuesGenerator<Vector> animalGenerator = new DistributedRandomValuesGenerator<>();
 
         for (Vector vector : worldMap.getAllPossibleVectors()) {
@@ -42,7 +41,7 @@ public class WorldMapBuilder {
             if (worldMap.isOccupied(vector))
                 i--;
             else
-                worldMap.addAnimal(new Animal(vector, worldMap, WorldDirection.NORTH, ));
+                worldMap.addAnimal(new Animal(vector, worldMap, Animal.DEFAULTWORLDDIRECTION, Animal.DEFAULTENERGY, initGenom, Animal.DEFAULTREPRODUCTION));
         }
     }
 }
