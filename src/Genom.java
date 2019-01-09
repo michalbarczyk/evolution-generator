@@ -18,4 +18,12 @@ public class Genom {
     }
 
     public Map<MoveDirection, Double> getMap() {return genes;}
+
+    public Genom getChildGenom() {
+        DistributedRandomValuesGenerator<MoveDirection> generator = new DistributedRandomValuesGenerator<>();
+        for (MoveDirection moveDirection : genes.keySet()) {
+            generator.add(moveDirection, 0.1d);
+        }
+
+    }
 }

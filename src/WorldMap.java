@@ -61,6 +61,8 @@ public class WorldMap implements IVectorChangeObserver {
 
     public Animal animalAt(Vector vector) {return animals.get(vector);}
 
+    public Plant plantAt(Vector vector) {return plants.get(vector);}
+
     public void addAnimal(Animal animal) {
         if(!isOccupied(animal.creatureVector)) {
             animals.put(animal.creatureVector, animal);
@@ -71,6 +73,10 @@ public class WorldMap implements IVectorChangeObserver {
 
     public void addPlant(Plant plant) {
         plants.put(plant.creatureVector, plant);
+    }
+
+    public Plant removePlantFrom(Vector vector) {
+        return plants.remove(vector);
     }
 
     public boolean isOccupied(Vector vector) {
@@ -109,5 +115,19 @@ public class WorldMap implements IVectorChangeObserver {
     public void vectorChanged(Vector oldVector, Vector newVector) {
         Animal animal = animals.remove(oldVector);
         animals.put(newVector, animal);
+    }
+
+    public Vector getFreeVectorNextTo(Vector vector) {
+
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
+                Vector candidateVector = vector.add(new Vector(x, y));
+                candidateVector = new Vector(candidateVector.x % length, candidateVector.y % height);
+                if (!isOccupied(candidateVector))
+                    return candidateVector;
+            }
+        }
+
+        return null;
     }
 }

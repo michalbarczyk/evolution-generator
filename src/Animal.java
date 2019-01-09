@@ -8,6 +8,7 @@ public class Animal extends Creature {
     private int toReproduction;
     private WorldDirection animalDirection;
     private Genom animalGenom;
+    public final int REPRODUCTIONENERGY = 16;
 
 
     public Animal(Vector initVector, WorldMap worldMap, WorldDirection initDirection, int energy, Genom initGenom, int toReproduction) {
@@ -63,6 +64,23 @@ public class Animal extends Creature {
         }
 
         move(directionGenerator.getDistributedRandom());
+    }
+
+    public void tryToEat() {
+        if (this.worldMap.isPlanted(this.getVector())) {
+            this.animalEnergy += this.worldMap.removePlantFrom(this.getVector()).getEnergeticValue();
+        }
+    }
+
+    public void tryReproduct() {
+        if (toReproduction == 0 && animalEnergy >= REPRODUCTIONENERGY) {
+            Vector childVector = worldMap.getFreeVectorNextTo(getVector());
+            if (childVector != null) {
+                worldMap.addAnimal(new Animal(childVector, worldMap, );
+            }
+
+        }
+
     }
 
     @Override
