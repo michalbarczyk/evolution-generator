@@ -11,7 +11,7 @@ public class Animal extends Creature {
     public static final int ONCREATIONENERGY = 25;
     public static final int REPRODUCTIONENERGY = 16;
     public static final WorldDirection DEFAULTWORLDDIRECTION = WorldDirection.NORTH;
-    public static final int REPRODUCTIONPERIOD = 100;
+    public static final int REPRODUCTIONPERIOD = 12;
     private Animal child;
 
 
