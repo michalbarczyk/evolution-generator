@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+package com.michalbarczyk.evogenerator;
+
 import java.util.Map;
 
 public class Animal extends Creature {
@@ -8,10 +8,10 @@ public class Animal extends Creature {
     private int toReproduction;
     private WorldDirection animalDirection;
     private Genom animalGenom;
-    public static final int DEFAULTENERGY = 25;
+    public static final int ONCREATIONENERGY = 25;
     public static final int REPRODUCTIONENERGY = 16;
     public static final WorldDirection DEFAULTWORLDDIRECTION = WorldDirection.NORTH;
-    public static final int DEFAULTREPRODUCTION = 100;
+    public static final int REPRODUCTIONPERIOD = 100;
     private Animal child;
 
 
@@ -87,9 +87,9 @@ public class Animal extends Creature {
 
             if (childVector != null) {
                 int childEnergy = this.animalEnergy / 2;
-                this.child = (new Animal(childVector, worldMap, DEFAULTWORLDDIRECTION, childEnergy, animalGenom.getChildGenom(), DEFAULTREPRODUCTION));
+                this.child = (new Animal(childVector, worldMap, DEFAULTWORLDDIRECTION, childEnergy, animalGenom.getChildGenom(), REPRODUCTIONPERIOD));
                 this.animalEnergy -= childEnergy;
-                this.toReproduction = DEFAULTREPRODUCTION;
+                this.toReproduction = REPRODUCTIONPERIOD;
             }
 
         }
@@ -98,6 +98,10 @@ public class Animal extends Creature {
 
     public Genom getAnimalGenom() {
         return this.animalGenom;
+    }
+
+    public WorldDirection getAnimalDirection() {
+        return animalDirection;
     }
 
     public Animal getChild() {

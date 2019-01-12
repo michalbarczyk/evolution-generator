@@ -1,3 +1,5 @@
+package com.michalbarczyk.evogenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +17,7 @@ public class Simulator {
 
     public void startSimulation() {
 
-        MapVisualizer mapVisualizer = new MapVisualizer(worldMap);
-
         for (int i = 0; i < duration; i++) {
-            //System.out.print(mapVisualizer.draw(new Vector(0,0), new Vector(worldMap.getLength() - 1, worldMap.getHeight() - 1)) + "\n");
-
-            System.out.println(i + " : " + worldMap.getAnimalsList().size());
-
             removeDeadAnimals();
             moveAllAnimals();
             feedAllAnimals();

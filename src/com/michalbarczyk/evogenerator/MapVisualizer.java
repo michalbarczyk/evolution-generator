@@ -1,3 +1,5 @@
+package com.michalbarczyk.evogenerator;
+
 public class MapVisualizer {
 
     private WorldMap map;
@@ -8,7 +10,9 @@ public class MapVisualizer {
         this.map = map;
     }
 
-    public String drawAnimals(Vector downLeft, Vector upRight) {
+    /*
+
+    public String drawAnimals(com.michalbarczyk.evogenerator.Vector downLeft, com.michalbarczyk.evogenerator.Vector upRight) {
         StringBuilder builder = new StringBuilder();
 
         int length = upRight.x - downLeft.x + 1;
@@ -26,7 +30,7 @@ public class MapVisualizer {
 
             for (int x = downLeft.x; x <= upRight.x; x++) {
                 builder.append(leftRightBorder);
-                Vector currVector = new Vector(x,y);
+                com.michalbarczyk.evogenerator.Vector currVector = new com.michalbarczyk.evogenerator.Vector(x,y);
                 if (this.map.isOccupied(currVector))
                     builder.append(this.map.animalAt(currVector).toString());
                 else
@@ -42,7 +46,7 @@ public class MapVisualizer {
         return builder.toString();
     }
 
-    public String drawPlants(Vector downLeft, Vector upRight) {
+    public String drawPlants(com.michalbarczyk.evogenerator.Vector downLeft, com.michalbarczyk.evogenerator.Vector upRight) {
         StringBuilder builder = new StringBuilder();
 
         int length = upRight.x - downLeft.x + 1;
@@ -60,7 +64,7 @@ public class MapVisualizer {
 
             for (int x = downLeft.x; x <= upRight.x; x++) {
                 builder.append(leftRightBorder);
-                Vector currVector = new Vector(x,y);
+                com.michalbarczyk.evogenerator.Vector currVector = new com.michalbarczyk.evogenerator.Vector(x,y);
                 if (this.map.isPlanted(currVector))
                     builder.append(" P");
                 else
@@ -75,6 +79,7 @@ public class MapVisualizer {
 
         return builder.toString();
     }
+    */
 
     public String draw(Vector downLeft, Vector upRight) {
         StringBuilder builder = new StringBuilder();
@@ -108,8 +113,6 @@ public class MapVisualizer {
 
             builder.append(leftRightBorder);
             builder.append("\n");
-
-
         }
 
         return builder.toString();

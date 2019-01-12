@@ -1,3 +1,5 @@
+package com.michalbarczyk.evogenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,3 +1,5 @@
+package com.michalbarczyk.evogenerator;
+
 public class Plant extends Creature {
 
     private final int energeticValue = 5;

@@ -1,3 +1,5 @@
+package com.michalbarczyk.evogenerator;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +12,6 @@ public class Genom {
         this.genes = genes;
     }
 
-    public Collection<Double> getValues() {
-        return genes.values();
-    }
     public Collection<Map.Entry<MoveDirection, Double>> getGenes() {
         return genes.entrySet();
     }
